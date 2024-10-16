@@ -25,4 +25,27 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'jquery' => [
+        'version' => '3.7.1',
+    ],
+    'datatables.net-dt' => [
+        'version' => '2.1.5',
+    ],
+    'datatables.net' => [
+        'version' => '2.1.5',
+    ],
+    'datatables.net-dt/css/dataTables.dataTables.min.css' => [
+        'version' => '2.1.5',
+        'type' => 'css',
+    ],
+    'datatables.net-buttons-dt' => [
+        'version' => '3.1.2',
+    ],
+    'datatables.net-buttons' => [
+        'version' => '3.1.2',
+    ],
+    'datatables.net-buttons-dt/css/buttons.dataTables.min.css' => [
+        'version' => '3.1.2',
+        'type' => 'css',
+    ],
 ];
