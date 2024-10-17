@@ -2,7 +2,10 @@
 
 namespace App\Tests;
 
+use App\Entity\Material;
+use App\Repository\MaterialRepository;
 use App\Service\MaterialService;
+use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 
 class MaterialTest extends TestCase
@@ -30,5 +33,22 @@ class MaterialTest extends TestCase
     public function testCalculatingTTCWithTVA2(): void
     {
         $this->assertEquals(55.13, MaterialService::calculateTTC('54', '0.021'));
+    }
+
+    public function testDecrementMaterialQuantity(): void
+    {
+        $repository = $this->createMock(MaterialRepository::class);
+        $entityManager = $this->createMock(EntityManager::class);
+        $service = new MaterialService($repository, $entityManager);
+
+        $material = new Material();
+        $material->setQuantity(10);
+
+        $repository->method('find')
+            ->willReturn($material);
+
+        $service->decrementMaterial(1);
+
+        $this->assertEquals(9, $material->getQuantity());
     }
 }

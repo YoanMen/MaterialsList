@@ -10,8 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MaterialController extends AbstractController
 {
-    #[Route('api/material', name: 'api.getMaterials')]
-    public function index(Request $request, MaterialService $materialService): Response
+    public function __construct(private MaterialService $materialService)
+    {
+    }
+
+    #[Route('api/material', methods: ['POST'], name: 'api.getMaterials')]
+    public function index(Request $request): Response
     {
         $draw = $request->get('draw', 1);
         $start = $request->get('start', 0);
@@ -19,7 +23,7 @@ class MaterialController extends AbstractController
         $search = $request->get('search', ['value' => '']);
         $order = $request->get('order', []);
 
-        $materials = $materialService->getMaterials($start, $length, $search['value'], $order);
+        $materials = $this->materialService->getMaterials($start, $length, $search['value'], $order);
 
         return $this->json([
             'draw' => $draw,
@@ -27,5 +31,17 @@ class MaterialController extends AbstractController
             'recordsFiltered' => $materials['maxResult'],
             'data' => $materials['data'],
         ]);
+    }
+
+    #[Route('/material/{id}/decrement', methods: ['POST'], name: 'api.decrementMaterials')]
+    public function decrement(int $id): Response
+    {
+        try {
+            $this->materialService->decrementMaterial($id);
+
+            return $this->json([], 200);
+        } catch (\Throwable $th) {
+            return $this->json(['error' => $th], 500);
+        }
     }
 }

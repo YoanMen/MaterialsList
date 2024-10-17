@@ -3,10 +3,11 @@
 namespace App\Service;
 
 use App\Repository\MaterialRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class MaterialService
 {
-    public function __construct(private MaterialRepository $repository)
+    public function __construct(private MaterialRepository $repository, private EntityManagerInterface $entityManager)
     {
     }
 
@@ -29,12 +30,27 @@ class MaterialService
                 $material->getPriceHT().' €',
                 $material->getPriceTTC().' €',
                 (string) $material->getTVA(),
-                '<button>décrement</button>',
-                '<button>voir</button>',
+                '<button onClick="decrement('.$material->getId().')">décrement</button>',
+                '<button onClick="openModal('.$material->getId().')">voir</button>',
             ];
         }
 
-        return ['data' => $data, 'maxResult' => $this->repository->count(), 'test' => $orderBy];
+        return ['data' => $data, 'maxResult' => $this->repository->getCountMaterial($search)];
+    }
+
+    public function decrementMaterial(int $id): void
+    {
+        $material = $this->repository->find($id);
+
+        $quantity = $material->getQuantity();
+
+        if ($quantity < 1) {
+            return;
+        }
+
+        $material->setQuantity($quantity - 1);
+        $this->entityManager->persist($material);
+        $this->entityManager->flush();
     }
 
     public static function calculateTTC(string $priceHT, string $tva): float
@@ -65,7 +81,7 @@ class MaterialService
             case '5':
                 return 'tva';
             default:
-                return 'id';
+                return 'name';
         }
     }
 }

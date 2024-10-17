@@ -26,12 +26,22 @@ class MaterialRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('m')
             ->setFirstResult(firstResult: $start)
             ->setMaxResults($length)
-            ->where('m.name LIKE :search')
+            ->where('m.name LIKE :search AND m.quantity > 0')
             ->orderBy('m.'.$column, $orderBy)
             ->setParameter('search', '%'.$search.'%');
 
         $query = $qb->getQuery();
 
         return $query->execute();
+    }
+
+    public function getCountMaterial(string $search): int
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('count(m.id)')
+            ->where('m.name LIKE :search AND m.quantity > 0')
+            ->setParameter('search', '%'.$search.'%');
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 }
