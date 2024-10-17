@@ -89,9 +89,9 @@ class Material
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('d-m-Y');
     }
 
     public function getTVA(): ?TVA
