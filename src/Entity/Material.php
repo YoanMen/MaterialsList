@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\MaterialRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: MaterialRepository::class)]
+#[UniqueEntity('name', 'Un matériel avec ce nom existe déjà')]
 class Material
 {
     #[ORM\Id]
@@ -98,12 +100,12 @@ class Material
         return $this;
     }
 
-    public function getTVA(): ?tva
+    public function getTVA(): ?TVA
     {
         return $this->tva;
     }
 
-    public function setTVA(?tva $tva): static
+    public function setTVA(?TVA $tva): static
     {
         $this->tva = $tva;
 
