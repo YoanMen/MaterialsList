@@ -2,12 +2,14 @@
 
 namespace App\Service;
 
+use App\Event\ContactRequestEvent;
 use App\Repository\MaterialRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MaterialService
 {
-    public function __construct(private MaterialRepository $repository, private EntityManagerInterface $entityManager)
+    public function __construct(private MaterialRepository $repository, private EntityManagerInterface $entityManager, private EventDispatcherInterface $dispatcher)
     {
     }
 
@@ -41,7 +43,6 @@ class MaterialService
     public function decrementMaterial(int $id): void
     {
         $material = $this->repository->find($id);
-
         $quantity = $material->getQuantity();
 
         if ($quantity < 1) {
@@ -51,6 +52,15 @@ class MaterialService
         $material->setQuantity($quantity - 1);
         $this->entityManager->persist($material);
         $this->entityManager->flush();
+
+        // send mail when quantity is empty
+        if (0 === $material->getQuantity()) {
+            try {
+                $this->dispatcher->dispatch(new ContactRequestEvent($material->getName()));
+            } catch (\Throwable $th) {
+                throw new \Exception('Cant send mail : '.$th);
+            }
+        }
     }
 
     public static function calculateTTC(string $priceHT, string $tva): float

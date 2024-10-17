@@ -3,10 +3,14 @@
 namespace App\Tests;
 
 use App\Entity\Material;
-use App\Repository\MaterialRepository;
-use App\Service\MaterialService;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
+use App\Service\MaterialService;
+use App\Event\ContactRequestEvent;
+use App\Repository\MaterialRepository;
+use App\EventSubscriber\MailingSubscriber;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mailer\MailerInterface;
 
 class MaterialTest extends TestCase
 {
@@ -39,7 +43,9 @@ class MaterialTest extends TestCase
     {
         $repository = $this->createMock(MaterialRepository::class);
         $entityManager = $this->createMock(EntityManager::class);
-        $service = new MaterialService($repository, $entityManager);
+        $dispatcher = $this->createMock(EventDispatcherInterface::class);
+
+        $service = new MaterialService($repository, $entityManager, $dispatcher);
 
         $material = new Material();
         $material->setQuantity(10);
