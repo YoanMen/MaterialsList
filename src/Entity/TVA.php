@@ -19,7 +19,7 @@ class TVA
     #[ORM\Column(length: 20)]
     private ?string $label = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 2)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 3)]
     private ?string $value = null;
 
     public function getId(): ?int

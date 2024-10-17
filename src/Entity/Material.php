@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MaterialRepository;
+use App\Service\MaterialService;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -93,13 +94,6 @@ class Material
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getTVA(): ?TVA
     {
         return $this->tva;
@@ -110,5 +104,19 @@ class Material
         $this->tva = $tva;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PrePersist]
+    public function setTTC(): void
+    {
+        $tva = $this->getTVA();
+        $price = MaterialService::calculateTTC($this->priceHT, $tva->getValue());
+        $this->priceTTC = strval($price);
     }
 }
