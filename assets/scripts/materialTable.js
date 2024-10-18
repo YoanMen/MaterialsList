@@ -1,8 +1,15 @@
 import DataTable from 'datatables.net-dt';
 import "datatables.net-dt/css/dataTables.dataTables.min.css"
 
-
 document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById('modal')
+  const modalContent = document.getElementById('modal-content');
+  const closeBtn = document.getElementById('modal-close');
+
+  closeBtn.addEventListener('click', () => modal.close())
+
+  // datatable
   const table = new DataTable('#tableMaterials', {
     columnDefs: [
       { orderable: false, targets: [6, 7] }
@@ -38,23 +45,108 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  function openModal(id) {
-    alert(id);
+  // listener clicks on table and set action depending attribute name
+  document.getElementById('tableMaterials').addEventListener("click", (event) => {
+    const id = event.target.dataset.material;
+
+    if (event.target.hasAttribute('decrement-action')) {
+      decrement(id)
+    }
+
+    if (event.target.hasAttribute('show-action')) {
+      showDetail(id);
+    }
+  })
+
+  async function showDetail(id) {
+    modalContent.innerHTML = '';
+
+    const loadingElement = document.createElement('p');
+    loadingElement.innerText = 'loading...';
+    modalContent.appendChild(loadingElement);
+
+    modal.showModal();
+
+    const material = await getMaterial(id);
+
+    modalContent.innerHTML = '';
+
+    const pdfElement = document.createElement('a');
+    pdfElement.innerText = 'pdf';
+    pdfElement.href = '#';
+
+    const nameElement = document.createElement('p');
+    nameElement.innerText = material.data.name;
+
+    const quantityElement = document.createElement('p');
+    quantityElement.innerText = 'quantité : ' + material.data.quantity;
+
+    const createdAtElement = document.createElement('p');
+    createdAtElement.innerText = 'Crée le : ' + material.data.createdAt;
+
+    const priceHTElement = document.createElement('p');
+    priceHTElement.innerText = 'HT : ' + material.data.priceHT + ' €';
+
+    const priceTTCElement = document.createElement('p');
+    priceTTCElement.innerText = 'TTC : ' + material.data.priceTTC + ' €';
+
+    const tvaElement = document.createElement('p');
+    tvaElement.innerText = 'TVA : ' + material.data.tva.label;
+
+    const editElement = document.createElement('a');
+    editElement.innerText = 'modifier';
+    editElement.href = `/material/${id}`;
+
+    modalContent.appendChild(pdfElement);
+    modalContent.appendChild(nameElement);
+    modalContent.appendChild(quantityElement);
+    modalContent.appendChild(createdAtElement);
+    modalContent.appendChild(priceHTElement);
+    modalContent.appendChild(priceTTCElement);
+    modalContent.appendChild(tvaElement);
+    modalContent.appendChild(editElement);
+
   }
 
   async function decrement(id) {
+    const tokenCsrf = document.getElementById('token-csrf').value;
+
     try {
       await fetch(`/material/${id}/decrement`, {
-        method: "POST"
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          tokenCsrf
+        })
       }).then(() => table.ajax.reload(null, false));
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  window.openModal = openModal;
-  window.decrement = decrement;
+  async function getMaterial(id) {
+    try {
+      const response = await fetch(`/api/material/${id}`, {
+        method: "POST", headers: {
+          'Accept': 'application/json',
+        },
+      });
 
+      if (!response) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const json = await response.json();
+
+      return json;
+
+    } catch (error) {
+      console.error(error.message);
+      return null;
+    }
+  }
 
 })
 

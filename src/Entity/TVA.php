@@ -6,6 +6,7 @@ use App\Repository\TVARepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TVARepository::class)]
 #[UniqueEntity('label', 'Une TVA avec ce nom existe déjà')]
@@ -17,6 +18,7 @@ class TVA
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Groups(['material.show'])]
     private ?string $label = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 3)]

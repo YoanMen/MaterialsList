@@ -12,8 +12,15 @@
 		</tr>
 	</thead>
 	<tbody></tbody>
+	<input id="token-csrf" type="hidden" name="token" value="{{ csrf_token('decrement-material') }}">
 </table>
 
+<dialog id='modal'>
+	<button id="modal-close">close modal</button>
+	<div id='modal-content'>
+		<p>loading...</p>
+	</div>
+</dialog>
 {% block javascripts %}
 	<script defer type="module" src="{{ asset("scripts/materialTable.js") }}"></script>
 {% endblock %}

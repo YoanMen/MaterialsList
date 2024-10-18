@@ -32,8 +32,8 @@ class MaterialService
                 $material->getPriceHT().' €',
                 $material->getPriceTTC().' €',
                 (string) $material->getTVA(),
-                '<button onClick="decrement('.$material->getId().')">décrement</button>',
-                '<button onClick="openModal('.$material->getId().')">voir</button>',
+                '<button decrement-action data-material="'.$material->getId().'" >décrement</button>',
+                '<button show-action data-material="'.$material->getId().'">voir</button>',
             ];
         }
 

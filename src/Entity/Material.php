@@ -7,6 +7,7 @@ use App\Service\MaterialService;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MaterialRepository::class)]
 #[UniqueEntity('name', 'Un matériel avec ce nom existe déjà')]
@@ -18,22 +19,28 @@ class Material
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
+    #[Groups(['material.show'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['material.show'])]
     private ?string $priceHT = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['material.show'])]
     private ?string $priceTTC = null;
 
     #[ORM\Column]
+    #[Groups(['material.show'])]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Groups(['material.show'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'materials')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['material.show'])]
     private ?TVA $tva = null;
 
     public function getId(): ?int
