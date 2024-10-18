@@ -9,18 +9,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class MaterialsListController extends AbstractController
+class MaterialController extends AbstractController
 {
     public function __construct(private MaterialRepository $repository)
     {
     }
 
-    #[Route('/', name: 'app.materials_list')]
+    #[Route('/', name: 'app.material')]
     public function index(): Response
     {
-        return $this->render('materials_list/index.html.twig', [
-            'controller_name' => 'MaterialsListController',
-        ]);
+        return $this->render('material/index.html.twig');
     }
 
     #[Route('material/{id}/pdf', methods: ['GET'], name: 'app.pdfMaterial')]
