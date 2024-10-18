@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pdfElement = document.createElement('a');
     pdfElement.innerText = 'pdf';
-    pdfElement.href = '#';
+    pdfElement.href = `material/${id}/pdf`;
 
     const nameElement = document.createElement('p');
     nameElement.innerText = material.data.name;

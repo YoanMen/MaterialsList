@@ -12,6 +12,7 @@ RUN apt-get update \
         zip \
         curl \
         mariadb-client \
+        wkhtmltopdf \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -25,7 +26,7 @@ RUN install-php-extensions \
     gd \
     intl \
     pdo_mysql \
-    zip
+    zip 
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
