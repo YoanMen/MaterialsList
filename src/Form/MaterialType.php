@@ -18,18 +18,27 @@ class MaterialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [])
+            ->add('name', TextType::class, [
+                'label' => 'nom'
+            ])
             ->add('priceHT', NumberType::class, [
                 'scale' => 2,
+                'label' => 'prix HT'
             ])
             ->add('priceTTC', NumberType::class, [
                 'scale' => 2,
+                'label' => "prix TTC"
             ])
-            ->add('quantity', IntegerType::class, [])
+            ->add('quantity', IntegerType::class, [
+                'label' => 'quantité'
+            ])
             ->add('tva', EntityType::class, [
                 'class' => TVA::class,
+                'label' => 'TVA'
             ])
-            ->add('submit', SubmitType::class, []);
+            ->add('submit', SubmitType::class, [
+                'label' => 'modifier'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
