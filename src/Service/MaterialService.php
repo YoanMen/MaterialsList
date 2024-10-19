@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Material;
 use App\Event\ContactRequestEvent;
 use App\Repository\MaterialRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,6 +12,16 @@ class MaterialService
 {
     public function __construct(private MaterialRepository $repository, private EntityManagerInterface $entityManager, private EventDispatcherInterface $dispatcher)
     {
+    }
+
+    public function saveMaterial(Material $material): void
+    {
+        try {
+            $this->entityManager->persist($material);
+            $this->entityManager->flush();
+        } catch (\Throwable $th) {
+            throw new \Exception('Cant save material: '.$th);
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TVARepository::class)]
 #[UniqueEntity('label', 'Une TVA avec ce nom existe déjà')]
@@ -19,6 +20,12 @@ class TVA
 
     #[ORM\Column(length: 20)]
     #[Groups(['material.show'])]
+    #[Assert\Length(
+        max: 60,
+        min: 3,
+        maxMessage: 'Le label ne doit pas dépasser 60 caractères',
+        minMessage: 'Le label doit faire minimum 3 caractères'
+    )]
     private ?string $label = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 3)]

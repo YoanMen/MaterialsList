@@ -1,4 +1,4 @@
-<table id="tableMaterials" class="" style="width:100%">
+<table data-turbo="false" id="tableMaterials" class="" style="width:100%">
 	<thead>
 		<tr>
 			<th>Nom</th>
@@ -14,8 +14,7 @@
 	<tbody></tbody>
 	<input id="token-csrf" type="hidden" name="token" value="{{ csrf_token('decrement-material') }}">
 </table>
-
-<dialog id='modal'>
+<dialog data-turbo="false" id='modal'>
 	<button id="modal-close">close modal</button>
 	<div id='modal-content'>
 		<p>loading...</p>

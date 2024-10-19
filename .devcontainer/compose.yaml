@@ -3,7 +3,7 @@ services:
     build:
       context: ..
       dockerfile: DockerFile
-
+        
     command: sleep infinity
     volumes:
       - ../.:/workspace

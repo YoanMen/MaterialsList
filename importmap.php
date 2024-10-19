@@ -16,6 +16,10 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'priceConverter' => [
+        'path' => './assets/scripts/utils/priceConverter.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
