@@ -1,6 +1,6 @@
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive'
-import messageFlash from 'messageFlash';
+import { fetchMaterial } from 'fetchMaterial';
 
 const modal = document.getElementById('modal')
 const modalName = document.getElementById('modal-name');
@@ -75,7 +75,8 @@ document.getElementById('tableMaterials').addEventListener("click", (event) => {
   const id = event.target.dataset.material;
 
   if (event.target.hasAttribute('decrement-action')) {
-    decrement(id)
+    fetchMaterial.decrement(id).then(() => table.ajax.reload(null, false)
+    );
   }
 
   if (event.target.hasAttribute('show-action')) {
@@ -85,7 +86,7 @@ document.getElementById('tableMaterials').addEventListener("click", (event) => {
 
 async function showDetail(id) {
 
-  await getMaterial(id).then((material) => {
+  await fetchMaterial.getMaterial(id).then((material) => {
 
     modalName.innerText = material.data.name;
     modalQuantity.innerText = material.data.quantity;
@@ -101,60 +102,4 @@ async function showDetail(id) {
   }).catch(() => modal.close());
 
 }
-
-async function decrement(id) {
-  const tokenCsrf = document.getElementById('token-csrf').value;
-
-  try {
-    const response = await fetch(`/material/${id}/decrement`, {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        tokenCsrf
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    table.ajax.reload(null, false)
-    messageFlash("Le matériel a été décrémenter", "alert-success")
-
-  } catch (error) {
-    messageFlash("décrémentation du matériel : " + error.message)
-    console.error(error.message);
-
-  }
-}
-
-async function getMaterial(id) {
-  try {
-    const response = await fetch(`/api/material/${id}`, {
-      method: "POST", headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-
-    if (!json.success) {
-      throw new Error(`Erreur: ${json.error}`);
-    }
-
-    return json;
-
-  } catch (error) {
-    console.error(error.message);
-    messageFlash("impossible de récupéré le matériel : " + error.message)
-  }
-}
-
-
 

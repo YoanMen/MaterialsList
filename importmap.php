@@ -24,6 +24,10 @@ return [
         'path' => './assets/scripts/utils/messageFlash.js',
         'entrypoint' => true,
     ],
+    'fetchMaterial' => [
+        'path' => './assets/scripts/fetchMaterial.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

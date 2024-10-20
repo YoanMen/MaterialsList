@@ -1,9 +1,5 @@
 <dialog id='modal'>
 	<div id='modal-content' class="modal">
-		<a id="modal-export" href="#" class="modal__pdf">
-			<span><img src="{{ asset('icons/teenyicons--pdf-solid.svg') }}" alt="pdf icon"></span>
-			exporter le détail
-		</a>
 		<h2>Détail du matériel</h2>
 		<div class="modal__field">
 			<p>nom :</p>
@@ -29,6 +25,10 @@
 			<p>TVA :</p>
 			<p id="modal-tva"></p>
 		</div>
+		<a id="modal-export" href="#" class="modal__pdf">
+			<span><img src="{{ asset('icons/teenyicons--pdf-solid.svg') }}" alt="pdf icon"></span>
+			exporter le détail
+		</a>
 		<div class="modal__buttons">
 			<a id="modal-edit" class="button">modifier</a>
 			<button id="modal-close" class="button button--secondary">fermer</button>
