@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Form\MaterialType;
 use App\Repository\MaterialRepository;
 use App\Service\MaterialService;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
-use Knp\Snappy\Pdf;
+use App\Service\PDFService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,20 +45,21 @@ class MaterialController extends AbstractController
     }
 
     #[Route('material/{id}/pdf', methods: ['GET'], name: 'app.pdfMaterial')]
-    public function pdf(int $id, Pdf $knpSnappyPdf): PdfResponse
+    public function pdf(int $id, PDFService $service): Response
     {
         $material = $this->repository->find($id);
-
-        $html = $this->renderView('pdf/pdf.html.twig', [
-            'material' => $material,
-        ]);
-
         $name = iconv('UTF-8', 'ASCII//TRANSLIT', $material->getName());
         $filename = str_replace(' ', '-', $name);
 
-        return new PdfResponse(
-            $knpSnappyPdf->getOutputFromHtml($html),
-            'export-'.$filename.'.pdf'
-        );
+        $html = $this->renderView('pdf/pdf.html.twig', [
+            'material' => $material,
+            'filename' => $filename,
+        ]);
+
+        $content = $service->output($html);
+
+        return new Response($content, 200, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }
