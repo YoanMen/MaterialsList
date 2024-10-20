@@ -74,6 +74,7 @@ dialog {
   padding: 20px 16px;
   cursor: pointer;
   transition: all ease-in-out 150ms;
+  min-width: 136px;
 }
 
 .button:hover {

@@ -34,6 +34,10 @@ const table = new DataTable('#tableMaterials', {
     { orderable: false, targets: [6, 7] },
     { responsivePriority: 1, targets: [6, 7] },
     {
+      targets: 0,
+      className: 'table__name'
+    },
+    {
       targets: 1,
       className: 'center-text'
     }

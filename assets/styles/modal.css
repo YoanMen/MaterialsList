@@ -36,6 +36,10 @@
   margin-left: auto;
 }
 
+.modal__buttons a {
+  min-width: 104px;
+}
+
 .modal__pdf {
   display: flex;
   justify-content: center;

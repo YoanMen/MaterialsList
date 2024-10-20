@@ -19,18 +19,18 @@ class MaterialType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'nom',
+                'label' => 'Nom',
             ])
             ->add('priceHT', NumberType::class, [
                 'scale' => 2,
-                'label' => 'prix HT',
+                'label' => 'Prix HT',
             ])
             ->add('priceTTC', NumberType::class, [
                 'scale' => 2,
-                'label' => 'prix TTC',
+                'label' => 'Prix TTC',
             ])
             ->add('quantity', IntegerType::class, [
-                'label' => 'quantité',
+                'label' => 'Quantité',
             ])
             ->add('tva', EntityType::class, [
                 'class' => TVA::class,
