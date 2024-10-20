@@ -1,9 +1,11 @@
 
 export default function messageFlash(message, type = "alert-error") {
-  const alert = document.createElement('div')
+  const alert = document.createElement('div');
+  const text = document.createElement('p');
   alert.className = `alert ${type}`;
-  alert.innerText = message;
+  text.innerText = message;
 
+  alert.appendChild(text);
   document.body.appendChild(alert);
 
   setTimeout(() => {

@@ -45,7 +45,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-items: center;
-  height: 100vh;
+  height: 100dvh;
 }
 
 h1 {
@@ -99,16 +99,18 @@ dialog {
 
 input[type="text"],
 input[type="number"],
+input[type="search"],
 select {
-  height: 26px;
+  height: 30px;
   padding: 0 6px;
   border-radius: 3px;
+  font-size: 1.1rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: var(--primary);
+  background-color: white;
 }
 
 select {
-  height: 30px;
+  height: 32px;
 }
 
 @media screen and (max-width: 768px) {
