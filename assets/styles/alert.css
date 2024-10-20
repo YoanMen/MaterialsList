@@ -1,0 +1,32 @@
+.alert {
+  position: fixed;
+  top: 0;
+  padding: 16px;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-100%);
+  animation: show linear 4s;
+}
+
+.alert-success {
+  background-color: #d4edda;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+}
+
+@keyframes show {
+  0% {
+    transform: translateY(-100%);
+  }
+  5% {
+    transform: translateY(0%);
+  }
+  95% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}

@@ -2,6 +2,7 @@
 @import url("./table.css");
 @import url("./modal.css");
 @import url("./form.css");
+@import url("./alert.css");
 
 @font-face {
   font-family: "Eudoxus";
@@ -79,6 +80,10 @@ dialog {
   filter: brightness(95%);
 }
 
+.button:active {
+  filter: brightness(90%);
+}
+
 .button--secondary {
   background-color: var(--button-color);
   color: var(--primary);
@@ -86,6 +91,10 @@ dialog {
 
 .button--secondary:hover {
   filter: brightness(120%);
+}
+
+.button--secondary:active {
+  filter: brightness(140%);
 }
 
 input[type="text"],

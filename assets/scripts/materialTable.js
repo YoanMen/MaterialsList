@@ -1,5 +1,6 @@
 import DataTable from 'datatables.net-dt';
 import 'datatables.net-responsive'
+import messageFlash from 'messageFlash';
 
 const modal = document.getElementById('modal')
 const modalName = document.getElementById('modal-name');
@@ -105,7 +106,7 @@ async function decrement(id) {
   const tokenCsrf = document.getElementById('token-csrf').value;
 
   try {
-    await fetch(`/material/${id}/decrement`, {
+    const response = await fetch(`/material/${id}/decrement`, {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -113,9 +114,19 @@ async function decrement(id) {
       body: JSON.stringify({
         tokenCsrf
       })
-    }).then(() => table.ajax.reload(null, false));
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    table.ajax.reload(null, false)
+    messageFlash("Le matériel a été décrémenter", "alert-success")
+
   } catch (error) {
+    messageFlash("décrémentation du matériel : " + error.message)
     console.error(error.message);
+
   }
 }
 
@@ -127,7 +138,7 @@ async function getMaterial(id) {
       },
     });
 
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
@@ -141,6 +152,7 @@ async function getMaterial(id) {
 
   } catch (error) {
     console.error(error.message);
+    messageFlash("impossible de récupéré le matériel : " + error.message)
   }
 }
 

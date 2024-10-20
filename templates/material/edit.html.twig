@@ -1,48 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MaterialsListController!
+{% block title %}Modifier matériel
 {% endblock %}
 
 {% block body %}
 	<h1>Modifier un matériel</h1>
-
-	{# {{ form(form) }} #}
-	{{ form_start(form, { 'attr': {'class': 'form'} }) }}
-	<div>
-		<div class="form__row">
-			<div class="form__container">
-				{{ form_label(form.name) }}
-				{{ form_widget(form.name) }}
-				{{ form_errors(form.name) }}
-			</div>
-			<div class="form__container">
-				{{ form_label(form.quantity) }}
-				{{ form_widget(form.quantity) }}
-				{{ form_errors(form.quantity) }}
-			</div>
-		</div>
-		<div class="form__row">
-			<div class="form__container">
-				{{ form_label(form.priceHT) }}
-				{{ form_widget(form.priceHT) }}
-				{{ form_errors(form.priceHT) }}
-			</div>
-			<div class="form__container">
-				{{ form_label(form.priceTTC) }}
-				{{ form_widget(form.priceTTC) }}
-				{{ form_errors(form.priceTTC) }}
-			</div>
-			<div class="form__container">
-				{{ form_label(form.tva) }}
-				{{ form_widget(form.tva) }}
-				{{ form_errors(form.tva) }}
-			</div>
-		</div>
-	</div>
-
-	{{ form_widget(form.submit)  }}
-	{{ form_end(form) }}
-{% endblock %}
-{% block javascriptsBottom %}
-	<script type="module" src="{{ asset("scripts/materialValidator.js") }}"></script>
+	{% include "material/partials/_form.html.twig" %}
 {% endblock %}

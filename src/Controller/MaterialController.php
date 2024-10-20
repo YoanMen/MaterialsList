@@ -35,6 +35,8 @@ class MaterialController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->service->saveMaterial($material);
 
+            $this->addFlash('success', message: 'Le matériel '.$material->getName().' a bien été modifier');
+
             return $this->redirectToRoute('app.material');
         }
 

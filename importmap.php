@@ -20,6 +20,10 @@ return [
         'path' => './assets/scripts/utils/priceConverter.js',
         'entrypoint' => true,
     ],
+    'messageFlash' => [
+        'path' => './assets/scripts/utils/messageFlash.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
