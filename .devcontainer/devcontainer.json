@@ -20,7 +20,8 @@
         "xabikos.JavaScriptSnippets",
         "Zarifprogrammer.tailwind-snippets",
         "christian-kohler.path-intellisense",
-        "rexshi.phpdoc-comment-vscode-plugin"
+        "rexshi.phpdoc-comment-vscode-plugin",
+        "DEVSENSE.phptools-vscode"
       ]
     }
   },

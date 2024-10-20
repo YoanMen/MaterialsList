@@ -38,6 +38,9 @@ class MaterialType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'modifier',
+                'attr' => [
+                    'class' => 'button button--secondary button--submit',
+                ],
             ]);
     }
 

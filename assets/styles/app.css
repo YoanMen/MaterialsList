@@ -1,6 +1,7 @@
 @import url("./reset.css");
 @import url("./table.css");
 @import url("./modal.css");
+@import url("./form.css");
 
 @font-face {
   font-family: "Eudoxus";
@@ -62,11 +63,6 @@ dialog {
   border: none;
 }
 
-footer {
-  background-color: black;
-  color: var(--primary);
-}
-
 .button {
   background-color: var(--secondary);
   color: var(--button-color);
@@ -90,6 +86,20 @@ footer {
 
 .button--secondary:hover {
   filter: brightness(120%);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: var(--primary);
+}
+
+select {
+  height: 30px;
 }
 
 @media screen and (max-width: 768px) {

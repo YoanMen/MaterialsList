@@ -33,10 +33,13 @@ class Material
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     #[Groups(['material.show'])]
+    #[Assert\NotBlank()]
     #[Assert\Regex(
         pattern: '/^[0-9]{1,7}(\.[0-9]{1,2})?$/',
         message: 'Le prix HT n\'est pas valide'
-    )] private ?string $priceHT = null;
+    )]
+    private ?string $priceHT = null;
+
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     #[Groups(['material.show'])]
     #[Assert\NotBlank()]
@@ -56,6 +59,7 @@ class Material
     #[ORM\ManyToOne(inversedBy: 'materials')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['material.show'])]
+    #[Assert\NotNull()]
     private ?TVA $tva = null;
 
     public function getId(): ?int
@@ -80,8 +84,14 @@ class Material
         return $this->priceHT;
     }
 
-    public function setPriceHT(string $priceHT): static
+    public function setPriceHT(?string $priceHT): static
     {
+        if (!$priceHT) {
+            $this->priceHT = '';
+
+            return $this;
+        }
+
         $this->priceHT = number_format(floatval($priceHT), 2, '.', '');
 
         return $this;
@@ -92,8 +102,14 @@ class Material
         return $this->priceTTC;
     }
 
-    public function setPriceTTC(string $priceTTC): static
+    public function setPriceTTC(?string $priceTTC): static
     {
+        if (!$priceTTC) {
+            $this->priceTTC = '';
+
+            return $this;
+        }
+
         $this->priceTTC = number_format(floatval($priceTTC), 2, '.', '');
 
         return $this;

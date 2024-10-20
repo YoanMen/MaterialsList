@@ -14,7 +14,3 @@
 	<tbody></tbody>
 	<input id="token-csrf" type="hidden" name="token" value="{{ csrf_token('decrement-material') }}">
 </table>
-
-{% block javascripts %}
-	<script defer type="module" src="{{ asset("scripts/materialTable.js") }}"></script>
-{% endblock %}
