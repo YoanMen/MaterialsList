@@ -1,0 +1,16 @@
+<table data-turbo="false" id="tableMaterials" class="table" style="width:100%">
+	<thead>
+		<tr>
+			<th>Nom</th>
+			<th>Quantité</th>
+			<th>crée le</th>
+			<th>HT</th>
+			<th>TTC</th>
+			<th>TVA</th>
+			<th>décrémenter</th>
+			<th>détail</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+	<input id="token-csrf" type="hidden" name="token" value="{{ csrf_token('decrement-material') }}">
+</table>

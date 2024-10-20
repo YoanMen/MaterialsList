@@ -1,0 +1,82 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary);
+  min-height: 380px;
+  width: 420px;
+  padding: 12px;
+  border-radius: 2px;
+}
+
+.modal > h2 {
+  margin-bottom: 16px;
+}
+
+.modal__field {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.modal__field > p:first-child {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.modal__field > p:last-child {
+  text-align: right;
+}
+
+.modal__buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  margin-left: auto;
+}
+
+.modal__pdf {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  gap: 6px;
+  color: var(--black);
+  font-size: 1rem;
+  margin-left: auto;
+  margin-top: 12px;
+}
+
+.modal__pdf:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .modal__buttons {
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modal {
+    width: 300px;
+  }
+
+  .modal__pdf {
+    margin: 12px auto 0;
+  }
+
+  .modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}

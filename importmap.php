@@ -16,6 +16,18 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'priceConverter' => [
+        'path' => './assets/scripts/utils/priceConverter.js',
+        'entrypoint' => true,
+    ],
+    'messageFlash' => [
+        'path' => './assets/scripts/utils/messageFlash.js',
+        'entrypoint' => true,
+    ],
+    'fetchMaterial' => [
+        'path' => './assets/scripts/fetchMaterial.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
@@ -24,5 +36,21 @@ return [
     ],
     '@hotwired/turbo' => [
         'version' => '7.3.0',
+    ],
+    'jquery' => [
+        'version' => '3.7.1',
+    ],
+    'datatables.net-dt' => [
+        'version' => '2.1.5',
+    ],
+    'datatables.net' => [
+        'version' => '2.1.5',
+    ],
+    'datatables.net-dt/css/dataTables.dataTables.min.css' => [
+        'version' => '2.1.5',
+        'type' => 'css',
+    ],
+    'datatables.net-responsive' => [
+        'version' => '3.0.3',
     ],
 ];

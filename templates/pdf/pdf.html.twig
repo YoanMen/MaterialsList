@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ filename }}</title>
+		<style>
+			h1 {
+				font-size: 3rem;
+			}
+
+			body {
+				background-color: white;
+				margin: 0 40px;
+
+			}
+
+			table {
+				margin-top: 80px;
+				width: 100%;
+				border-collapse: collapse;
+				border: 2px solid rgb(200 200 200);
+				font-size: 0.8rem;
+				letter-spacing: 1px;
+			}
+
+			caption {
+				caption-side: bottom;
+				padding: 10px;
+				font-weight: bold;
+			}
+
+			th,
+			td {
+				border: 1px solid rgb(200, 200, 200);
+				padding: 8px 10px;
+			}
+
+			td:last-of-type {
+				text-align: center;
+			}
+
+			tbody > tr:nth-of-type(even) {
+				background-color: rgba(0, 0, 0, 0.05);
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>Détail du produit</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Libellé</th>
+					<th scope="col">Valeur</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Nom</th>
+					<td>{{material.name}}</td>
+				</tr>
+				<tr>
+					<th scope="row">Quantité</th>
+					<td>{{material.quantity}}</td>
+				</tr>
+				<tr>
+					<th scope="row">Crée le</th>
+					<td>{{ material.createdAt}}</td>
+				</tr>
+				<tr>
+					<th scope="row">TVA</th>
+					<td>{{material.tva.label}}</td>
+				</tr>
+				<tr>
+					<th scope="row">Prix HT</th>
+					<td>{{ material.priceHT}}€</td>
+				</tr>
+				<tr>
+					<th scope="row">PRIX TTC</th>
+					<td>{{material.priceTTC}}€</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
