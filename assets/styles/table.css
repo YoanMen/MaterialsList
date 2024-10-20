@@ -1,0 +1,57 @@
+h1 {
+  margin-left: 8px;
+}
+
+.dt-container .dt-empty-footer,
+.dt-layout-row,
+dt-layout-table {
+  width: 100% !important;
+}
+.center-text {
+  text-align: center;
+}
+
+.dt-paging-button:not(.disabled):hover {
+  background: none !important;
+  border-color: var(--secondary) !important ;
+  background-color: var(--button-color) !important;
+  color: var(--button-color) !important;
+}
+
+tbody > tr:hover {
+  background-color: #332f2d05 !important;
+}
+
+.dt-layout-start {
+  margin-left: 8px;
+}
+
+.dt-layout-end {
+  margin-right: 8px;
+}
+
+.dt-search {
+  border-radius: 2px;
+  background-color: white;
+}
+
+::placeholder {
+  text-align: center;
+}
+.dt-paging-button .disabled .previous {
+  color: #f9ffff !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current,
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  box-shadow: none;
+  text-decoration-style: none;
+}
+
+@media screen and (max-width: 768px) {
+  .dt-search > input {
+    width: 100%;
+  }
+}

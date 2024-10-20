@@ -1,0 +1,99 @@
+@import url("./reset.css");
+@import url("./table.css");
+@import url("./modal.css");
+
+@font-face {
+  font-family: "Eudoxus";
+  src: url("./fonts/eudoxus/EudoxusSansGX.ttf");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --font-eudoxus: "Eudoxus", sans-serif;
+  --primary: #f9ffff;
+  --secondary: #eccca3;
+  --button-color: #332f2d;
+  --error: #c8493a;
+}
+
+body {
+  background-color: var(--primary);
+}
+
+p,
+label,
+td,
+button,
+div,
+h1,
+span {
+  font-family: var(--font-eudoxus);
+  color: var(--button-color);
+}
+
+strong {
+  font-weight: 800;
+}
+
+main {
+  margin: auto;
+  max-width: 1024px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  height: 100vh;
+}
+
+h1 {
+  margin-top: 64px;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+dialog {
+  background-color: transparent;
+  border: none;
+}
+
+footer {
+  background-color: black;
+  color: var(--primary);
+}
+
+.button {
+  background-color: var(--secondary);
+  color: var(--button-color);
+  border-radius: 2px;
+  font-size: 0.9rem;
+  line-height: 0px;
+  text-align: center;
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all ease-in-out 150ms;
+}
+
+.button:hover {
+  filter: brightness(95%);
+}
+
+.button--secondary {
+  background-color: var(--button-color);
+  color: var(--primary);
+}
+
+.button--secondary:hover {
+  filter: brightness(120%);
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    margin-top: 16px;
+  }
+}

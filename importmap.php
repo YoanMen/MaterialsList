@@ -42,14 +42,7 @@ return [
         'version' => '2.1.5',
         'type' => 'css',
     ],
-    'datatables.net-buttons-dt' => [
-        'version' => '3.1.2',
-    ],
-    'datatables.net-buttons' => [
-        'version' => '3.1.2',
-    ],
-    'datatables.net-buttons-dt/css/buttons.dataTables.min.css' => [
-        'version' => '3.1.2',
-        'type' => 'css',
+    'datatables.net-responsive' => [
+        'version' => '3.0.3',
     ],
 ];

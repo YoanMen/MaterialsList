@@ -40,11 +40,11 @@ class MaterialService
                 $material->getName(),
                 $material->getQuantity(),
                 $material->getCreatedAt(),
-                $material->getPriceHT().' €',
-                $material->getPriceTTC().' €',
+                $material->getPriceHT().'€',
+                $material->getPriceTTC().'€',
                 (string) $material->getTVA(),
-                '<button decrement-action data-material="'.$material->getId().'" >décrement</button>',
-                '<button show-action data-material="'.$material->getId().'">voir</button>',
+                '<button class="button" decrement-action data-material="'.$material->getId().'" >décrémenter</button>',
+                '<button class="button button--secondary" show-action data-material="'.$material->getId().'">voir</button>',
             ];
         }
 

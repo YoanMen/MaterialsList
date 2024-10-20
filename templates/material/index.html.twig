@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MaterialsListController!
+{% block title %}Liste des matériels
 {% endblock %}
 
 {% block body %}
+	<h1>Liste des matériels</h1>
 	{% include "material/partials/_table.html.twig" %}
+	{% include "material/partials/_modal.html.twig" %}
+
 {% endblock %}

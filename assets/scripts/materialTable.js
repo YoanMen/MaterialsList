@@ -1,28 +1,54 @@
 import DataTable from 'datatables.net-dt';
-import "datatables.net-dt/css/dataTables.dataTables.min.css"
+import 'datatables.net-responsive'
 
 const modal = document.getElementById('modal')
-const modalContent = document.getElementById('modal-content');
-const closeBtn = document.getElementById('modal-close');
+const modalName = document.getElementById('modal-name');
+const modalQuantity = document.getElementById('modal-quantity');
+const modalCreatedAt = document.getElementById('modal-createdAt');
+const modalHT = document.getElementById('modal-ht');
+const modalTTC = document.getElementById('modal-ttc');
+const modalTVA = document.getElementById('modal-tva');
+const modalCloseBtn = document.getElementById('modal-close');
+const modalEditBtn = document.getElementById('modal-edit');
+const modalExportBtn = document.getElementById('modal-export');
 
-closeBtn.addEventListener('click', () => modal.close())
+modal.addEventListener('click', (event) => {
+  const dialogDimensions = modal.getBoundingClientRect()
+  if (event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom) {
+    modal.close();
+  }
+})
+
+modalCloseBtn.addEventListener('click', () => modal.close())
+
 
 // datatable
 const table = new DataTable('#tableMaterials', {
+  responsive: true,
+  scrollY: '60vh',
   columnDefs: [
-    { orderable: false, targets: [6, 7] }
+    { orderable: false, targets: [6, 7] },
+    { responsivePriority: 1, targets: [6, 7] },
+    {
+      targets: 1,
+      className: 'center-text'
+    }
   ],
   language: {
     "decimal": "",
     "emptyTable": "Aucune données disponible",
-    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "info": "Affichage de <strong>_START_</strong> à <strong>_END_</strong> sur <strong>_TOTAL_</strong>",
     "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
     "infoFiltered": "(filtré à partir de _MAX_ entrées totales)",
     "infoPostFix": "",
     "thousands": ",",
     "lengthMenu": "Afficher _MENU_ matériels",
-    "loadingRecords": "Chargement...",
-    "search": "Rechercher un matériel :",
+    "loadingRecords": "",
+    "search": "",
+    "searchPlaceholder": 'Rechercher un produit',
     "zeroRecords": "Aucun materiel trouvé",
     "paginate": {
       "first": "Début",
@@ -57,52 +83,21 @@ document.getElementById('tableMaterials').addEventListener("click", (event) => {
 })
 
 async function showDetail(id) {
-  modalContent.innerHTML = '';
 
-  const loadingElement = document.createElement('p');
-  loadingElement.innerText = 'loading...';
-  modalContent.appendChild(loadingElement);
+  await getMaterial(id).then((material) => {
 
-  modal.showModal();
+    modalName.innerText = material.data.name;
+    modalQuantity.innerText = material.data.quantity;
+    modalCreatedAt.innerText = material.data.createdAt;
+    modalHT.innerText = material.data.priceHT + ' €';
+    modalTTC.innerText = material.data.priceTTC + ' €';
+    modalTVA.innerText = material.data.tva.label;
+    modalEditBtn.href = `material/${id}`;
+    modalExportBtn.href = `material/${id}/pdf`;
 
-  const material = await getMaterial(id);
+    modal.showModal();
 
-  modalContent.innerHTML = '';
-
-  const pdfElement = document.createElement('a');
-  pdfElement.innerText = 'pdf';
-  pdfElement.href = `material/${id}/pdf`;
-
-  const nameElement = document.createElement('p');
-  nameElement.innerText = material.data.name;
-
-  const quantityElement = document.createElement('p');
-  quantityElement.innerText = 'quantité : ' + material.data.quantity;
-
-  const createdAtElement = document.createElement('p');
-  createdAtElement.innerText = 'Crée le : ' + material.data.createdAt;
-
-  const priceHTElement = document.createElement('p');
-  priceHTElement.innerText = 'HT : ' + material.data.priceHT + ' €';
-
-  const priceTTCElement = document.createElement('p');
-  priceTTCElement.innerText = 'TTC : ' + material.data.priceTTC + ' €';
-
-  const tvaElement = document.createElement('p');
-  tvaElement.innerText = 'TVA : ' + material.data.tva.label;
-
-  const editElement = document.createElement('a');
-  editElement.innerText = 'modifier';
-  editElement.href = `/material/${id}`;
-
-  modalContent.appendChild(pdfElement);
-  modalContent.appendChild(nameElement);
-  modalContent.appendChild(quantityElement);
-  modalContent.appendChild(createdAtElement);
-  modalContent.appendChild(priceHTElement);
-  modalContent.appendChild(priceTTCElement);
-  modalContent.appendChild(tvaElement);
-  modalContent.appendChild(editElement);
+  }).catch(() => modal.close());
 
 }
 
@@ -138,11 +133,14 @@ async function getMaterial(id) {
 
     const json = await response.json();
 
+    if (!json.success) {
+      throw new Error(`Erreur: ${json.error}`);
+    }
+
     return json;
 
   } catch (error) {
     console.error(error.message);
-    return null;
   }
 }
 
