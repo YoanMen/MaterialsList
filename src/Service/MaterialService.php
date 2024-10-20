@@ -19,6 +19,15 @@ class MaterialService
         try {
             $this->entityManager->persist($material);
             $this->entityManager->flush();
+
+            // send mail when quantity is empty
+            if (0 === $material->getQuantity()) {
+                try {
+                    $this->dispatcher->dispatch(new ContactRequestEvent($material->getName()));
+                } catch (\Throwable $th) {
+                    throw new \Exception('Cant send mail : '.$th);
+                }
+            }
         } catch (\Throwable $th) {
             throw new \Exception('Cant save material: '.$th);
         }
@@ -61,17 +70,7 @@ class MaterialService
         }
 
         $material->setQuantity($quantity - 1);
-        $this->entityManager->persist($material);
-        $this->entityManager->flush();
-
-        // send mail when quantity is empty
-        if (0 === $material->getQuantity()) {
-            try {
-                $this->dispatcher->dispatch(new ContactRequestEvent($material->getName()));
-            } catch (\Throwable $th) {
-                throw new \Exception('Cant send mail : '.$th);
-            }
-        }
+        $this->saveMaterial($material);
     }
 
     public static function calculateTTC(string $priceHT, string $tva): float
