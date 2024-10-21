@@ -37,10 +37,10 @@
 }
 
 .modal__buttons a {
-  min-width: 104px;
+  min-width: 92px;
 }
 
-.modal__pdf {
+.modal__pdf { 
   display: flex;
   justify-content: center;
   width: fit-content;
