@@ -118,4 +118,9 @@ select {
   h1 {
     margin-top: 16px;
   }
+
+  td > .button {
+    min-width: fit-content;
+    font-size: 0.8rem;
+  }
 }

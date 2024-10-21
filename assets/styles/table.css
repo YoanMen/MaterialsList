@@ -11,6 +11,10 @@ dt-layout-table {
   text-align: center;
 }
 
+.dt-scroll-body {
+  overflow-x: hidden !important;
+}
+
 .dt-paging-button:not(.disabled):hover {
   background: none !important;
   border-color: var(--secondary) !important ;
